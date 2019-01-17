@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lin.test.mapper.ExportMapper">
+    <resultMap type="cn.lin.test.pojo.TableMessage" id="tmMap">
+        <id property="tableName" column="Table_Name" jdbcType="VARCHAR"/>
+        <result property="tableComment" column="Table_comment" jdbcType="VARCHAR"/>
+        <result property="OrdinalPosition" column="Ordinal_position" jdbcType="VARCHAR"/>
+        <result property="ColumnName" column="Column_name" jdbcType="VARCHAR"/>
+        <result property="DataType" column="Data_type" jdbcType="VARCHAR"/>
+        <result property="ColumnComment" column="Column_comment" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="findTableMessageBySchema" parameterType="java.lang.String" resultMap="tmMap">
+     SELECT a.Table_name ,a.Table_comment ,b.Ordinal_position ,b.Column_name ,b.Data_type ,b.Column_comment
+FROM information_schema. TABLES a JOIN information_schema. COLUMNS b ON a.Table_name = b.Table_name
+WHERE a.TABLE_SCHEMA =#{database}  AND a.Table_Type ='BASE TABLE';
+
+    </select>
+
+
+
+
+
+
+</mapper>
